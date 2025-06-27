@@ -105,7 +105,7 @@ class GoalListItem extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 7),
                     Text(deadline, style: TextStyle(fontSize: 12)),
                     SizedBox(height: 8.5),
                     Text(sourceAccount, style: TextStyle(fontSize: 12)),

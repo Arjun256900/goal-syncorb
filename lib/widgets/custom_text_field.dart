@@ -24,17 +24,17 @@ class CustomTextField extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: TextStyle(color: Color(0xFF0000004D),fontSize: 14,),
+              hintStyle: TextStyle(color:Color.fromRGBO(0, 0, 0, 0.3), fontSize: 14),
               filled: true,
               fillColor: Colors.white,
-              enabledBorder: OutlineInputBorder( 
-      borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(color: Color(0xff00000066)), 
-    ),
-    focusedBorder: OutlineInputBorder( 
-      borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(color: Colors.black, width: 1),
-    ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(7),
+                borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.4),width: 0.5),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(7),
+                borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.3), width: 0.5),
+              ),
             ),
           ),
         ),
