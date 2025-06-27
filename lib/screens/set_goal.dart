@@ -18,7 +18,11 @@ class SetGoal extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            AddContainer(),
+            AddContainer(
+              subtext: "Add New Goal",
+              isGoal: true,
+              isUpload: false,
+            ),
             const SizedBox(height: 25),
             Text(
               "Ongoing Goal List",

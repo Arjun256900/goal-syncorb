@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:goal/screens/set_goal.dart';
+import 'package:goal/screens/transaction_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -20,7 +21,14 @@ class Home extends StatelessWidget {
             child: Text("Goal"),
           ),
           const SizedBox(width: 10),
-          ElevatedButton(onPressed: () {}, child: Text("Transaction")),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                CupertinoPageRoute(builder: (context) => TransactionScreen()),
+              );
+            },
+            child: Text("Transaction"),
+          ),
         ],
       ),
     );

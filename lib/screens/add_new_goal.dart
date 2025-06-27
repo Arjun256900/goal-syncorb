@@ -69,7 +69,7 @@ class AddNewGoal extends StatelessWidget {
                         ),
                         
                         ),
-                        backgroundColor: Color.fromRGBO(3, 150, 157,1),
+                        backgroundColor:Theme.of(context).primaryColor,
                         ),
                     child: Text("Set Goal",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w500),)
                   ),

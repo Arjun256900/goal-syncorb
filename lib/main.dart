@@ -13,9 +13,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Home(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Color(0xFFF0F0F0),textSelectionTheme: TextSelectionThemeData(
-      cursorColor: const Color.fromARGB(132, 0, 0, 0), // cursor color
-      selectionColor: const Color.fromARGB(104, 3, 91, 205))),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0xFFF0F0F0),
+        primaryColor: Color(0xFF03969D),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: const Color.fromARGB(132, 0, 0, 0), // cursor color
+          selectionColor: const Color.fromARGB(104, 3, 91, 205),
+        ),
+      ),
     );
   }
 }

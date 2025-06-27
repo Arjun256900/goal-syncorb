@@ -16,14 +16,14 @@ class GoalListItem extends StatelessWidget {
     required this.sourceAccount,
     required this.percentage,
   });
-  Color getPriorityColor(String priority) {
+  Color getPriorityColor(BuildContext context ,priority) {
     switch (priority.toLowerCase()) {
       case 'high':
         return Color(0xFFF97358);
       case 'medium':
         return Colors.orange;
       case 'low':
-        return Color(0xFF24C0A3);
+        return Theme.of(context).primaryColor;
       default:
         return Colors.grey;
     }
@@ -52,7 +52,7 @@ class GoalListItem extends StatelessWidget {
                       width: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: getPriorityColor(priority),
+                        color: getPriorityColor(context,priority),
                       ),
                       child: Icon(
                         Icons.home_outlined,
@@ -113,7 +113,7 @@ class GoalListItem extends StatelessWidget {
                     Text(
                       priority,
                       style: TextStyle(
-                        color: getPriorityColor(priority),
+                        color: getPriorityColor(context ,priority),
                         fontSize: 12,
                       ),
                     ),
