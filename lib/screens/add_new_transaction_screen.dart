@@ -1,6 +1,4 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:goal/widgets/add_container.dart';
 import 'package:goal/widgets/custom_text_field.dart';
 import 'package:goal/widgets/dropDownField.dart';
 import 'package:goal/widgets/file_picker.dart';
@@ -88,11 +86,12 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
               ],
             ),
             const SizedBox(height: 15),
-            Dropdownfield(
-              items: ["Cash", "Online"],
-              hintText: "Cash",
-              heading: "Source selection",
-            ),
+            // Dropdownfield(
+            //   items: ["Cash", "Online"],
+            //   hintText: "Cash",
+            //   heading: "Source selection",
+              
+            // ),
             const SizedBox(height: 10),
             CustomTextField(heading: "Amount", hintText: "Enter Amount"),
             const SizedBox(height: 10),
@@ -101,11 +100,11 @@ class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
               hintText: "Select Date Of Transaction",
             ),
             const SizedBox(height: 10),
-            Dropdownfield(
-              items: ["Food", "Others"],
-              hintText: "Eg: Food",
-              heading: "Category",
-            ),
+            // Dropdownfield(
+            //   items: ["Food", "Others"],
+            //   hintText: "Eg: Food",
+            //   heading: "Category",
+            // ),
             const SizedBox(height: 10),
             Row(
               children: [

@@ -4,12 +4,14 @@ class Dropdownfield extends StatefulWidget {
   final List<String> items;
   final String hintText;
   final String heading;
+  final ValueChanged<String> onChanged;
   // final String SelectedValue;
   const Dropdownfield({
     super.key,
     required this.items,
     required this.hintText,
     required this.heading,
+    required this.onChanged,
   });
 
   @override
@@ -50,9 +52,12 @@ class _DropdownfieldState extends State<Dropdownfield> {
                 }).toList(),
                 icon: const Icon(Icons.keyboard_arrow_down),
                 onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValue = newValue;
-                  });
+                  if (newValue != null) {
+                    setState(() {
+                      selectedValue = newValue;
+                    });
+                    widget.onChanged(newValue); // Dispatch to BLoC or parent
+                  }
                 },
               ),
             ),
