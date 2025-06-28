@@ -23,7 +23,7 @@ class TransactionScreen extends StatelessWidget {
             AddContainer(
               subtext: "Add New Transaction",
               isGoal: false,
-              isUpload: false,
+             
             ),
             const SizedBox(height: 25),
             Text(

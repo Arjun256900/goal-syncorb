@@ -57,7 +57,9 @@ class AddNewGoal extends StatelessWidget {
                   const SizedBox(height: 15),
             
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(380, 48),
                       

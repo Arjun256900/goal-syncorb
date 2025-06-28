@@ -6,13 +6,7 @@ import 'package:goal/screens/add_new_transaction_screen.dart';
 class AddContainer extends StatelessWidget {
   final String subtext;
   final bool isGoal;
-  final bool isUpload;
-  const AddContainer({
-    super.key,
-    required this.subtext,
-    required this.isGoal,
-    required this.isUpload,
-  });
+  const AddContainer({super.key, required this.subtext, required this.isGoal});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +31,8 @@ class AddContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
-                backgroundColor: Color(isUpload ? 0xFFFFFFFF : 0xFFE8F5F6),
-                child: Center(child: Icon(isUpload ? Icons.upload : Icons.add)),
+                backgroundColor: Color(0xFFE8F5F6),
+                child: Center(child: Icon(Icons.add)),
               ),
               const SizedBox(height: 8),
               Text(subtext),

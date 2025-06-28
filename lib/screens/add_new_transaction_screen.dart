@@ -1,10 +1,25 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:goal/widgets/add_container.dart';
 import 'package:goal/widgets/custom_text_field.dart';
 import 'package:goal/widgets/dropDownField.dart';
+import 'package:goal/widgets/file_picker.dart';
 
-class AddNewTransactionScreen extends StatelessWidget {
+class AddNewTransactionScreen extends StatefulWidget {
   const AddNewTransactionScreen({super.key});
+
+  @override
+  State<AddNewTransactionScreen> createState() =>
+      _AddNewTransactionScreenState();
+}
+
+class _AddNewTransactionScreenState extends State<AddNewTransactionScreen> {
+  bool isDebit = true;
+  void setType() {
+    setState(() {
+      isDebit = !isDebit;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +41,49 @@ class AddNewTransactionScreen extends StatelessWidget {
               children: [
                 OutlinedButton.icon(
                   style: OutlinedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: isDebit
+                        ? Theme.of(context).primaryColor
+                        : Colors.white,
+                    side: BorderSide(color: Theme.of(context).primaryColor),
                   ),
-                  onPressed: () {},
-                  label: const Text("Debit"),
-                  icon: const Icon(Icons.arrow_downward),
+
+                  onPressed: () {
+                    if (isDebit) return;
+                    setType();
+                  },
+                  label: Text(
+                    "Debit",
+                    style: TextStyle(
+                      color: isDebit ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.arrow_downward,
+                    color: isDebit ? Colors.white : Colors.black,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 OutlinedButton.icon(
-                  onPressed: () {},
-                  label: const Text("Credit"),
-                  icon: const Icon(Icons.arrow_upward),
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: !isDebit
+                        ? Theme.of(context).primaryColor
+                        : Colors.white,
+                    side: BorderSide(color: Theme.of(context).primaryColor),
+                  ),
+                  onPressed: () {
+                    if (!isDebit) return;
+                    setType();
+                  },
+                  label: Text(
+                    "Credit",
+                    style: TextStyle(
+                      color: !isDebit ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.arrow_upward,
+                    color: !isDebit ? Colors.white : Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -74,17 +121,13 @@ class AddNewTransactionScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 7),
-            AddContainer(
+            FilePickerWidget(
               subtext: "Select the suitable document for upload here",
-              isGoal: false,
-              isUpload: true,
             ),
             const SizedBox(height: 35),
 
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.1,
-              ), // 10% margins
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Row(
                 children: [
                   // Undo Button
@@ -92,8 +135,12 @@ class AddNewTransactionScreen extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {},
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.grey.shade200,
+                        backgroundColor: Color(0xFFE6E6E6),
                         foregroundColor: Colors.black87,
+                        side: BorderSide(
+                          color: Color.fromRGBO(0, 0, 0, 0.1),
+                          width: 0.5,
+                        ),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6),
@@ -106,7 +153,9 @@ class AddNewTransactionScreen extends StatelessWidget {
                   // Save Button
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).primaryColor,
                         foregroundColor: Colors.white,
