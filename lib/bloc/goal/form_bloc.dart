@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goal/bloc/goal/form_event.dart';
 import 'package:goal/bloc/goal/form_state.dart';
@@ -30,14 +31,11 @@ class FormBloc extends Bloc<GoalEvent, GoalState> {
       emit(newState.copyWith(isValid: _formIsValid(newState)));
     });
     on<SubmitGoal>((event, emit) {
-      print(
-        "🎯 Goal Submitted! "
-        "Name: ${state.goalName}, "
-        "Amount: ${state.amount}, "
-        "Date: ${state.date}, "
-        "Priority: ${state.priority}, "
-        "From: ${state.sourceAccount}",
-      );
+      if (_formIsValid(state)) {
+        print(jsonEncode(state.toJson()));
+      } else {
+        print("Form is not valid.");
+      }
     });
   }
   bool _formIsValid(GoalState s) {

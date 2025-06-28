@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
-
 class FilePickerWidget extends StatefulWidget {
   final String subtext;
-  const FilePickerWidget({super.key, required this.subtext});
+  final Function(String) onFilePicked; 
+
+  const FilePickerWidget({
+    super.key,
+    required this.subtext,
+    required this.onFilePicked,
+  });
 
   @override
   State<FilePickerWidget> createState() => _FilePickerWidgetState();
@@ -12,16 +17,23 @@ class FilePickerWidget extends StatefulWidget {
 
 class _FilePickerWidgetState extends State<FilePickerWidget> {
   String? fileName;
-   
+
   void _pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
+      String name = result.files.single.name;
+      String? path = result.files.single.path;
+
       setState(() {
-        fileName = result.files.single.name;
+        fileName = name;
       });
-      // You can also get the path: result.files.single.path;
+
       debugPrint("Picked file: $fileName");
+
+      if (path != null) {
+        widget.onFilePicked(path); 
+      }
     } else {
       debugPrint("No file selected.");
     }
@@ -36,7 +48,7 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
           radius: Radius.circular(8),
           strokeWidth: 1.5,
           dashPattern: [6, 6],
-          color: Color.fromRGBO(0, 0, 0, 0.45),
+          color: const Color.fromRGBO(0, 0, 0, 0.45),
         ),
         child: Container(
           height: 105,
@@ -50,7 +62,7 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+                  backgroundColor: Colors.transparent,
                   child: Icon(
                     fileName != null ? Icons.done : Icons.upload,
                     size: 24,

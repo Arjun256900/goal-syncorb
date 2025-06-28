@@ -43,4 +43,14 @@ class GoalState {
       isValid: isValid ?? this.isValid,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "goalName": goalName,
+      "amount": amount,
+      "date": date,
+      "priority": priority,
+      "sourceAccount": sourceAccount,
+    };
+  }
 }

@@ -76,12 +76,11 @@ class AddNewGoal extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         ElevatedButton(
-                          onPressed: state.isValid
-                              ? () {
+                          onPressed:state.isValid ? () {
                                   bloc.add(SubmitGoal());
                                   Navigator.of(context).pop();
                                 }
-                              : null,
+                                : null,
                           style: ElevatedButton.styleFrom(
                             fixedSize: const Size(double.infinity, 48),
                             shape: RoundedRectangleBorder(
