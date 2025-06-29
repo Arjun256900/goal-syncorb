@@ -117,8 +117,10 @@ class _AddNewTransactionScreenBodyState
                       const SizedBox(height: 15),
                       Dropdownfield(
                         items: ["Cash", "Online"],
-                        hintText: "Cash",
+                        hintText: 'Cash',
+                        selectedValue: state.sourceSelection.isEmpty ? null : state.sourceSelection,
                         heading: "Source selection",
+                        
                         onChanged: (value) {
                           context.read<TransactionBloc>().add(
                             SourceSelectionChanged(value),
@@ -129,6 +131,7 @@ class _AddNewTransactionScreenBodyState
                       CustomTextField(
                         heading: "Amount",
                         hintText: "Enter Amount",
+                        initialValue: state.amount,
                         onChanged: (value) {
                           context.read<TransactionBloc>().add(
                             AmountChanged(value),
@@ -148,8 +151,9 @@ class _AddNewTransactionScreenBodyState
                       const SizedBox(height: 10),
                       Dropdownfield(
                         items: ["Food", "Others"],
-                        hintText: "Eg: Food",
+                        hintText: "Eg. Food",
                         heading: "Category",
+                        selectedValue:state.category.isEmpty ? null : state.category,
                         onChanged: (value) {
                           context.read<TransactionBloc>().add(
                             CategoryChanged(value),
@@ -157,13 +161,30 @@ class _AddNewTransactionScreenBodyState
                         },
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        "Upload bill (Optional)",
-                        style: TextStyle(fontSize: 14),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Upload bill copy",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextSpan(
+                              text: " (optional)",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 7),
                       FilePickerWidget(
                         subtext: "Select the suitable document for upload here",
+                        filepath: state.filepath,
                         onFilePicked: (path) {
                           context.read<TransactionBloc>().add(
                             FilepathChanged(path),
@@ -172,66 +193,64 @@ class _AddNewTransactionScreenBodyState
                       ),
                       const SizedBox(height: 35),
                       Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            children: [
-                              // Undo Button
-                              Expanded(
-                                child: TextButton(
-                                  onPressed: () {
-                                    context.read<TransactionBloc>().add(
-                                      UndoTransaction(),
-                                    );
-                                  },
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Color(0xFFE6E6E6),
-                                    foregroundColor: Colors.black87,
-                                    side: BorderSide(
-                                      color: Color.fromRGBO(0, 0, 0, 0.1),
-                                      width: 0.5,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          children: [
+                            // Undo Button
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () {
+                                  context.read<TransactionBloc>().add(
+                                    UndoTransaction(),
+                                  );
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Color(0xFFE6E6E6),
+                                  foregroundColor: Colors.black87,
+                                  side: BorderSide(
+                                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                                    width: 0.5,
                                   ),
-                                  child: const Text('Undo'),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ), 
-                              // Save Button
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    context.read<TransactionBloc>().add(
-                                      SubmitTransaction(),
-                                    );
-                                    Navigator.of(context).pop();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(
-                                      context,
-                                    ).primaryColor,
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    elevation: 0,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
                                   ),
-                                  child: const Text('Save'),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
                                 ),
+                                child: const Text('Undo'),
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(width: 16),
+                            // Save Button
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  context.read<TransactionBloc>().add(
+                                    SubmitTransaction(),
+                                  );
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(
+                                    context,
+                                  ).primaryColor,
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  elevation: 0,
+                                ),
+                                child: const Text('Save'),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ],
                   ),
                 ),
               ),

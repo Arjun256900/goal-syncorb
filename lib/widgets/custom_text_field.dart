@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// A reusable text input field that dispatches changes via [onChanged].
-/// Removed internal controller to prevent rebuild issues—uses [initialValue] instead.
 class CustomTextField extends StatelessWidget {
   final String heading;
   final String hintText;
@@ -29,6 +27,8 @@ class CustomTextField extends StatelessWidget {
         ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 54),
           child: TextFormField(
+            // 👇 KEY forces full rebuild when value changes
+            key: ValueKey(initialValue),
             initialValue: initialValue,
             onChanged: onChanged,
             decoration: InputDecoration(

@@ -27,12 +27,22 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<FilepathChanged>((event, emit) {
       emit(state.copyWith(filepath: event.value));
     });
-
+    on<UndoTransaction>((event, emit) {
+      emit(state.copyWith(
+    debitOrCredit: '',
+    amount: '',
+    date: '',
+    sourceSelection: '',
+    category: '',
+    filepath: '',
+  ));
+    });
     on<SubmitTransaction>((event, emit) {
       if (_formIsValid(state)) {
         print(state.toJson());
         // Optionally: emit success state or trigger listener
       } else {
+        print("Form is not valid.");
         // emit(state.copyWith());
       }
     });

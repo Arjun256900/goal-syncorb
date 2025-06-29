@@ -41,14 +41,29 @@ class _DateFieldState extends State<DateField> {
     }
   }
 
-  @override
-  void didUpdateWidget(covariant DateField old) {
-    super.didUpdateWidget(old);
-    if (widget.selectedDate != old.selectedDate) {
-      _controller.text = widget.selectedDate;
-      // parse date similar to initState if needed
+ @override
+void didUpdateWidget(covariant DateField old) {
+  super.didUpdateWidget(old);
+  if (widget.selectedDate != old.selectedDate) {
+    _controller.text = widget.selectedDate;
+
+    // Also update _pickedDate
+    if (widget.selectedDate.isNotEmpty) {
+      final parts = widget.selectedDate.split('/');
+      if (parts.length == 3) {
+        final d = int.tryParse(parts[0]);
+        final m = int.tryParse(parts[1]);
+        final y = int.tryParse(parts[2]);
+        if (d != null && m != null && y != null) {
+          _pickedDate = DateTime(y, m, d);
+        }
+      }
+    } else {
+      _pickedDate = null; // Reset if empty
     }
   }
+}
+
 
   Future<void> _selectDate(BuildContext context) async {
     final now = DateTime.now();

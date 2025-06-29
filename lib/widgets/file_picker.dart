@@ -1,39 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
-class FilePickerWidget extends StatefulWidget {
+
+class FilePickerWidget extends StatelessWidget {
   final String subtext;
-  final Function(String) onFilePicked; 
+  final Function(String) onFilePicked;
+  final String filepath;
 
   const FilePickerWidget({
     super.key,
     required this.subtext,
     required this.onFilePicked,
+    required this.filepath,
   });
 
-  @override
-  State<FilePickerWidget> createState() => _FilePickerWidgetState();
-}
-
-class _FilePickerWidgetState extends State<FilePickerWidget> {
-  String? fileName;
-
-  void _pickFile() async {
+  void _pickFile(BuildContext context) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    if (result != null) {
-      String name = result.files.single.name;
-      String? path = result.files.single.path;
-
-      setState(() {
-        fileName = name;
-      });
-
-      debugPrint("Picked file: $fileName");
-
-      if (path != null) {
-        widget.onFilePicked(path); 
-      }
+    if (result != null && result.files.single.path != null) {
+      onFilePicked(result.files.single.path!);
     } else {
       debugPrint("No file selected.");
     }
@@ -41,8 +26,10 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final fileName = filepath.isNotEmpty ? filepath.split('/').last : '';
+
     return InkWell(
-      onTap: _pickFile,
+      onTap: () => _pickFile(context),
       child: DottedBorder(
         options: RoundedRectDottedBorderOptions(
           radius: Radius.circular(8),
@@ -64,14 +51,14 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
                 CircleAvatar(
                   backgroundColor: Colors.transparent,
                   child: Icon(
-                    fileName != null ? Icons.done : Icons.upload,
+                    fileName.isNotEmpty ? Icons.done : Icons.upload,
                     size: 24,
                     color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  fileName ?? widget.subtext,
+                  fileName.isNotEmpty ? fileName : subtext,
                   style: const TextStyle(fontSize: 14),
                 ),
               ],

@@ -60,18 +60,16 @@ class AddNewGoal extends StatelessWidget {
                         Dropdownfield(
                           heading: "Priority Level",
                           items: ['low', 'medium', 'high'],
-                          hintText: state.priority.isEmpty
-                              ? 'medium'
-                              : state.priority,
+                          selectedValue: state.priority.isEmpty ? null : state.priority,
+                          hintText: 'medium',
                           onChanged: (v) => bloc.add(PrioityLevelChanged(v)),
                         ),
                         const SizedBox(height: 8),
                         Dropdownfield(
                           heading: "Set Source Account",
                           items: ['Account A', 'Account B', 'Account C'],
-                          hintText: state.sourceAccount.isEmpty
-                              ? 'Select Source Account'
-                              : state.sourceAccount,
+                          hintText:  'Select Source Account',
+                          selectedValue: state.sourceAccount.isEmpty ? null : state.sourceAccount,
                           onChanged: (v) => bloc.add(SourceAccountChanged(v)),
                         ),
                         const SizedBox(height: 15),
