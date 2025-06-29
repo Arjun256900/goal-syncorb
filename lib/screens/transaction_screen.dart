@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goal/widgets/add_container.dart';
 import 'package:goal/widgets/transaction_card.dart';
+import 'package:goal/widgets/transaction_time_frame.dart';
 
 class TransactionScreen extends StatelessWidget {
   const TransactionScreen({super.key});
@@ -20,16 +21,14 @@ class TransactionScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AddContainer(
-              subtext: "Add New Transaction",
-              isGoal: false,
-             
-            ),
+            AddContainer(subtext: "Add New Transaction", isGoal: false),
             const SizedBox(height: 25),
             Text(
               "Recent Transaction",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
+            const SizedBox(height: 25),
+            TransactionTimeFrame(),
             const SizedBox(height: 25),
             TransactionCard(
               amount: "300",
